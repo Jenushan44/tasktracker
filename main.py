@@ -15,7 +15,7 @@ if tasks_path.exists():
   with open("tasks.json", "r") as file: 
     data = json.load(file)
 else: 
-  data = { "nextId": 1, "tasks": [] }
+  data = { "nextId": 0, "tasks": [] }
   with open("tasks.json", "w") as file: 
     json.dump(data,file)
   
@@ -38,14 +38,19 @@ if args[1] == 'add':
   print(f"Tasks successfully added {task_id}")
 
 elif args[1] == 'list': 
-  with open("tasks.json", "r") as file: 
-    d = json.load(file)
 
   for task in data['tasks']: 
     print(task["id"], end= " ")
     print(task["description"], end=" ")
     print(task["status"])
 
+elif args[1] == 'mark-done': 
+  statusId = int(args[2])
+  data["tasks"][statusId]["status"] = 'done'
+
+  with open("tasks.json", "w") as file: 
+    json.dump(data, file)
+    
 else: 
   print("Please provide a valid command")
   sys.exit()
