@@ -23,13 +23,27 @@ else:
 
 
 if tasks_path.exists(): 
-  
   with open("tasks.json", "r") as file: 
     data = json.load(file)
-
 else: 
   data = { "nextId": 1, "tasks": [] }
   with open("tasks.json", "w") as file: 
     json.dump(data,file)
   
     
+description = args[2]
+task_id = data["nextId"]
+
+currentTask = {
+  "id": task_id, 
+  "description": description, 
+  "status": "todo",
+}
+
+data["tasks"].append(currentTask)
+data["nextId"] += 1 
+
+with open("tasks.json", "w") as file: 
+  json.dump(data, file)
+
+print(f"Tasks successfully added {task_id}")
