@@ -50,6 +50,13 @@ elif args[1] == 'mark-done':
 
   with open("tasks.json", "w") as file: 
     json.dump(data, file)
+
+elif args[1] == 'mark-in-progress': 
+  statusId = int(args[2]) 
+  data["tasks"][statusId]["status"] = "In Progress"
+
+  with open("tasks.json", "w") as file: 
+    json.dump(data, file)
     
 else: 
   print("Please provide a valid command")
