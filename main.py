@@ -57,7 +57,16 @@ elif args[1] == 'mark-in-progress':
 
   with open("tasks.json", "w") as file: 
     json.dump(data, file)
-    
+
+elif args[1] == 'update': 
+  descID = int(args[2])
+  newDesc = args[3]
+
+  data["tasks"][descID]["description"] = newDesc
+
+  with open("tasks.json", "w") as file: 
+    json.dump(data, file)
+      
 else: 
   print("Please provide a valid command")
   sys.exit()
